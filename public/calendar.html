@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080b10">
+<meta name="robots" content="noindex">
+<title>Calendar</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/app.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Calendar</h1>
+      <div class="sysline" id="sysline">Loading…</div>
+    </div>
+    <div class="actions">
+      <a class="btn-link" href="/">Back to dashboard</a>
+    </div>
+  </header>
+  <section class="cal-panel" aria-label="Runs in the last five weeks">
+    <div class="cal-grid" id="calendar"></div>
+  </section>
+</div>
+<script type="module" src="/calendar.js"></script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+name = "running-dashboard"
+main = "src/index.js"
+compatibility_date = "2026-11-21"
+routes = [{ pattern = "run.rjlopez.me", custom_domain = true }]
+workers_dev = false
+preview_urls = false
+
+[dev]
+host = "localhost"
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
+run_worker_first = true
+
+[[kv_namespaces]]
+binding = "RUNS"
+id = "c344fde9774c40c7a0f6bc0e17985bc9"
+
+[triggers]
+crons = ["0 */3 * * *"]
+
+[observability]
+enabled = true

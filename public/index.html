@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080b10">
+<title>Running Dashboard</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/app.css">
+</head>
+<body>
+<svg class="bg-track" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect x="80" y="80" width="1440" height="740" rx="370" class="lane-edge"/><rect x="106" y="106" width="1388" height="688" rx="344" class="lane"/><rect x="132" y="132" width="1336" height="636" rx="318" class="lane"/><rect x="158" y="158" width="1284" height="584" rx="292" class="lane"/><rect x="184" y="184" width="1232" height="532" rx="266" class="lane"/><rect x="210" y="210" width="1180" height="480" rx="240" class="lane"/><rect x="236" y="236" width="1128" height="428" rx="214" class="lane"/><rect x="262" y="262" width="1076" height="376" rx="188" class="lane"/><rect x="288" y="288" width="1024" height="324" rx="162" class="lane-edge"/><line x1="560" y1="80" x2="560" y2="106" class="mark"/><line x1="594" y1="106" x2="594" y2="132" class="mark"/><line x1="628" y1="132" x2="628" y2="158" class="mark"/><line x1="662" y1="158" x2="662" y2="184" class="mark"/><line x1="696" y1="184" x2="696" y2="210" class="mark"/><line x1="730" y1="210" x2="730" y2="236" class="mark"/><line x1="764" y1="236" x2="764" y2="262" class="mark"/><line x1="798" y1="262" x2="798" y2="288" class="mark"/><line x1="1040" y1="820" x2="1040" y2="612" class="finish"/><rect x="288" y="288" width="1024" height="324" rx="162" class="field"/></svg>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Running</h1>
+      <div class="sysline" id="sysline">Loading…</div>
+    </div>
+    <div class="actions">
+      <div class="action-row">
+      <span class="key-chip" id="key-chip" hidden></span>
+      <button id="refresh" class="btn-glitch" type="button" data-text="Refresh now" aria-label="Refresh now"><span class="scan" aria-hidden="true"></span><span class="btn-label">Refresh now</span></button>
+      </div>
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    </div>
+  </header>
+
+  <div class="banners" id="banners"></div>
+
+  <section class="card countdown" id="countdown" aria-label="Marathon countdown">
+    <div>
+      <div class="label">Race countdown</div>
+      <div class="race-name" id="race-name"></div>
+      <div class="race-meta" id="race-meta"></div>
+    </div>
+    <div>
+      <div class="clock" id="clock"></div>
+      <div class="clock-total" id="clock-total"></div>
+    </div>
+  </section>
+
+  <div class="section-head">
+    <div class="section-left"><div class="section-title">This week <span id="week-number"></span></div><a class="btn-link small" href="/calendar">Calendar</a></div>
+    <div class="week-total" id="week-total"></div>
+  </div>
+  <section class="days" id="days" aria-label="Runs per day this week"></section>
+
+  <section class="kpis" aria-label="Totals">
+    <div class="card"><div class="label">Km this week</div><div class="value c-green" id="week-km">–</div><div class="note" id="week-km-note"></div></div>
+    <div class="card"><div class="label">Km this year</div><div class="value c-cyan" id="year-km">–</div><div class="note" id="year-km-note"></div></div>
+    <div class="card"><div class="label">Longest run · 8 wk</div><div class="value c-violet" id="longest-km">–</div><div class="note" id="longest-note"></div></div>
+    <div class="card"><div class="label">Avg pace · 8 wk</div><div class="value c-green" id="avg-pace">–</div><div class="note" id="avg-pace-note"></div></div>
+  </section>
+
+  <section class="card projection" aria-label="Marathon projection">
+    <div>
+      <div class="label" id="proj-label">Marathon projection</div>
+      <div class="big c-green" id="proj-time">–</div>
+      <div class="gap" id="proj-gap"></div>
+      <div class="note" id="proj-basis"></div>
+    </div>
+    <div>
+      <div class="label">Goal</div>
+      <div class="value c-pink" id="goal-time">–</div>
+      <div class="note">Required pace <strong class="c-pink" id="goal-pace">–</strong> /km</div>
+    </div>
+    <div>
+      <div class="label">Projected pace</div>
+      <div class="value c-cyan" id="proj-pace">–</div>
+      <div class="note" id="pace-diff"></div>
+    </div>
+    <div class="targets-wrap">
+      <div class="label" id="others-label">Other distances</div>
+      <div class="targets" id="targets"></div>
+    </div>
+    <div class="targets-wrap" id="compare-wrap" hidden>
+      <div class="label">For comparison · pace only (Riegel)</div>
+      <div class="targets four" id="compare-targets"></div>
+      <div class="note" id="compare-note"></div>
+    </div>
+    <div class="confidence" id="confidence"></div>
+  </section>
+
+  <section class="charts">
+    <div class="card">
+      <div class="label">Weekly distance · last 16 weeks</div>
+      <div class="chart-box"><canvas id="mileage-chart" aria-label="Weekly distance bar chart" role="img"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="label">Average pace per week · goal pace</div>
+      <div class="chart-box"><canvas id="pace-chart" aria-label="Weekly average pace line chart" role="img"></canvas></div>
+    </div>
+  </section>
+
+  <footer>
+    <span id="last-sync">Last sync: –</span>
+    <span id="stored-runs"></span>
+    <span id="key-expiry"></span>
+    <span id="source"></span>
+  </footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script type="module" src="/app.js"></script>
+</body>
+</html>
